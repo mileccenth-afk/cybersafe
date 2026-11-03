@@ -1,0 +1,1989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberSafe: Cybersecurity Awareness for Students</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberSafe: Cybersecurity Awareness for Students</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        burgundy: {
+                            50: '#fdf2f4',
+                            100: '#fbe5e9',
+                            200: '#f7ced6',
+                            600: '#9b2c44',
+                            700: '#801f34',
+                            800: '#6b1d2f',
+                            900: '#521422',
+                            950: '#340a13',
+                        },
+                        cream: {
+                            50: '#fefefe',
+                            100: '#fdfaf5',
+                            200: '#f5efe6',
+                            300: '#e8dec9',
+                            400: '#d7c5a6',
+                        },
+                        dark: {
+                            800: '#1f1f1f',
+                            900: '#121212',
+                            950: '#0a0a0a',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #fdfaf5;
+            color: #121212;
+        }
+        .tab-btn.active {
+            background-color: #6b1d2f;
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(107, 29, 47, 0.3);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f5efe6;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #6b1d2f;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-burgundy-800 selection:text-cream-100 relative">
+
+    <!-- LOGIN MODAL / SCREEN (FORCE LOGIN FIRST) -->
+    <div id="login-modal" class="fixed inset-0 z-[100] bg-dark-900/90 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="bg-cream-100 border border-burgundy-900/40 w-full max-w-md rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6 relative overflow-hidden">
+            <div class="absolute -top-12 -right-12 w-32 h-32 bg-burgundy-800/10 rounded-full blur-2xl pointer-events-none"></div>
+
+            <!-- Brand Header -->
+            <div class="text-center space-y-2">
+                <div class="w-16 h-16 bg-burgundy-800 text-cream-100 rounded-2xl flex items-center justify-center text-3xl mx-auto shadow-lg shadow-burgundy-900/30">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <h2 class="text-2xl font-extrabold text-dark-900 tracking-tight">Cyber<span class="text-burgundy-800">Safe</span> Portal</h2>
+                <p class="text-xs text-dark-800/70">Sign in to access student cybersecurity learning modules, interactive tools, and quizzes.</p>
+            </div>
+
+            <!-- Login Form -->
+            <form onsubmit="handleLogin(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-dark-900 uppercase tracking-wider mb-1">Student / User ID</label>
+                    <div class="relative">
+                        <input type="text" id="login-username" value="student" required class="w-full bg-white border border-cream-300 text-dark-900 text-sm rounded-xl px-4 py-3 pl-10 focus:outline-none focus:ring-2 focus:ring-burgundy-800">
+                        <i class="fa-solid fa-user absolute left-3.5 top-1/2 -translate-y-1/2 text-dark-800/40 text-sm"></i>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-dark-900 uppercase tracking-wider mb-1">Password</label>
+                    <div class="relative">
+                        <input type="password" id="login-password" value="cybersafe123" required class="w-full bg-white border border-cream-300 text-dark-900 text-sm rounded-xl px-4 py-3 pl-10 focus:outline-none focus:ring-2 focus:ring-burgundy-800">
+                        <i class="fa-solid fa-lock absolute left-3.5 top-1/2 -translate-y-1/2 text-dark-800/40 text-sm"></i>
+                    </div>
+                </div>
+
+                <div id="login-alert" class="hidden text-xs text-red-600 font-bold bg-red-50 border border-red-200 p-2.5 rounded-xl text-center"></div>
+
+                <button type="submit" class="w-full bg-burgundy-800 hover:bg-burgundy-700 text-white font-bold py-3 rounded-xl transition shadow-md shadow-burgundy-900/20 text-sm flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-right-to-bracket"></i>
+                    <span>Log In to CyberSafe</span>
+                </button>
+            </form>
+
+            <div class="relative flex py-1 items-center">
+                <div class="flex-grow border-t border-cream-300"></div>
+                <span class="flex-shrink mx-3 text-[11px] uppercase tracking-wider font-bold text-dark-800/50">Or Quick Test</span>
+                <div class="flex-grow border-t border-cream-300"></div>
+            </div>
+
+            <!-- Guest Quick Login -->
+            <button onclick="loginAsGuest()" class="w-full bg-cream-200 hover:bg-cream-300 border border-cream-300 text-dark-900 font-bold py-3 rounded-xl transition text-sm flex items-center justify-center space-x-2">
+                <i class="fa-solid fa-user-graduate text-burgundy-800"></i>
+                <span>Enter as Guest Student</span>
+            </button>
+
+            <div class="text-[11px] text-center text-dark-800/60 bg-cream-200/50 p-2.5 rounded-xl border border-cream-300/60">
+                <i class="fa-solid fa-circle-info text-burgundy-800 mr-1"></i> Pre-filled Demo Credentials: <b>student</b> / <b>cybersafe123</b>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN PLATFORM CONTENT (Locked until login) -->
+    <div id="main-app" class="hidden min-h-screen flex flex-col justify-between">
+
+        <!-- Top Announcement Bar -->
+        <div class="bg-dark-900 text-cream-200 text-xs py-2 px-4 flex justify-between items-center border-b border-burgundy-900/40">
+            <div class="flex items-center space-x-2">
+                <i class="fa-solid fa-graduation-cap text-burgundy-600"></i>
+                <span>BSIT Capstone Educational Project — Cyber Safety & Ethics Awareness</span>
+            </div>
+            <div class="flex items-center space-x-3 text-[11px]">
+                <span id="user-display-name" class="font-bold text-cream-100">Welcome, Student</span>
+                <button onclick="logout()" class="text-burgundy-200 hover:text-white underline text-xs font-semibold">
+                    <i class="fa-solid fa-arrow-right-from-bracket mr-1"></i>Logout
+                </button>
+            </div>
+        </div>
+
+        <!-- Navigation Header -->
+        <header class="sticky top-0 z-50 bg-cream-100/95 backdrop-blur-md border-b border-cream-300/60 shadow-sm">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-20">
+                    <!-- Brand Logo -->
+                    <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('home')">
+                        <div class="w-12 h-12 bg-burgundy-800 rounded-xl flex items-center justify-center text-cream-100 shadow-md shadow-burgundy-900/20">
+                            <i class="fa-solid fa-shield-halved text-2xl"></i>
+                        </div>
+                        <div>
+                            <span class="text-2xl font-extrabold tracking-tight text-dark-900">Cyber<span class="text-burgundy-800">Safe</span></span>
+                            <span class="block text-xs font-semibold text-burgundy-700 tracking-widest uppercase">Student Awareness</span>
+                        </div>
+                    </div>
+
+                    <!-- Desktop Nav Tabs -->
+                    <nav class="hidden md:flex space-x-1 bg-cream-200 p-1.5 rounded-2xl border border-cream-300/50">
+                        <button onclick="switchTab('home')" id="nav-home" class="tab-btn active px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200 flex items-center space-x-2">
+                            <i class="fa-solid fa-house text-xs"></i><span>Home</span>
+                        </button>
+                        <button onclick="switchTab('modules')" id="nav-modules" class="tab-btn px-4 py-2 rounded-xl text-sm font-semibold text-dark-800 hover:text-burgundy-800 transition-all duration-200 flex items-center space-x-2">
+                            <i class="fa-solid fa-book-open text-xs"></i><span>Modules</span>
+                        </button>
+                        <button onclick="switchTab('tool')" id="nav-tool" class="tab-btn px-4 py-2 rounded-xl text-sm font-semibold text-dark-800 hover:text-burgundy-800 transition-all duration-200 flex items-center space-x-2">
+                            <i class="fa-solid fa-key text-xs"></i><span>Password Check</span>
+                        </button>
+                        <button onclick="switchTab('quiz')" id="nav-quiz" class="tab-btn px-4 py-2 rounded-xl text-sm font-semibold text-dark-800 hover:text-burgundy-800 transition-all duration-200 flex items-center space-x-2">
+                            <i class="fa-solid fa-list-check text-xs"></i><span>Interactive Quiz</span>
+                        </button>
+                        <button onclick="switchTab('ethics')" id="nav-ethics" class="tab-btn px-4 py-2 rounded-xl text-sm font-semibold text-dark-800 hover:text-burgundy-800 transition-all duration-200 flex items-center space-x-2">
+                            <i class="fa-solid fa-scale-balanced text-xs"></i><span>IT Ethics</span>
+                        </button>
+                        <button onclick="switchTab('admin')" id="nav-admin" class="tab-btn px-4 py-2 rounded-xl text-sm font-semibold text-dark-800 hover:text-burgundy-800 transition-all duration-200 flex items-center space-x-2">
+                            <i class="fa-solid fa-user-shield text-xs"></i><span>Admin</span>
+                        </button>
+                    </nav>
+
+                    <!-- Mobile Menu Button -->
+                    <div class="md:hidden flex items-center">
+                        <button onclick="toggleMobileMenu()" class="p-2.5 rounded-xl text-dark-900 bg-cream-200 hover:bg-cream-300 transition">
+                            <i class="fa-solid fa-bars text-xl"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile Navigation Menu -->
+            <div id="mobile-menu" class="hidden md:hidden bg-cream-100 border-b border-cream-300 px-4 pt-2 pb-4 space-y-2">
+                <button onclick="switchTab('home'); toggleMobileMenu()" class="w-full text-left px-4 py-3 rounded-xl font-semibold text-dark-900 hover:bg-burgundy-800 hover:text-white transition flex items-center space-x-3">
+                    <i class="fa-solid fa-house"></i><span>Home Overview</span>
+                </button>
+                <button onclick="switchTab('modules'); toggleMobileMenu()" class="w-full text-left px-4 py-3 rounded-xl font-semibold text-dark-900 hover:bg-burgundy-800 hover:text-white transition flex items-center space-x-3">
+                    <i class="fa-solid fa-book-open"></i><span>Learning Modules</span>
+                </button>
+                <button onclick="switchTab('tool'); toggleMobileMenu()" class="w-full text-left px-4 py-3 rounded-xl font-semibold text-dark-900 hover:bg-burgundy-800 hover:text-white transition flex items-center space-x-3">
+                    <i class="fa-solid fa-key"></i><span>Password Checker</span>
+                </button>
+                <button onclick="switchTab('quiz'); toggleMobileMenu()" class="w-full text-left px-4 py-3 rounded-xl font-semibold text-dark-900 hover:bg-burgundy-800 hover:text-white transition flex items-center space-x-3">
+                    <i class="fa-solid fa-list-check"></i><span>Interactive Quiz</span>
+                </button>
+                <button onclick="switchTab('ethics'); toggleMobileMenu()" class="w-full text-left px-4 py-3 rounded-xl font-semibold text-dark-900 hover:bg-burgundy-800 hover:text-white transition flex items-center space-x-3">
+                    <i class="fa-solid fa-scale-balanced"></i><span>Ethics & Responsibility</span>
+                </button>
+                <button onclick="switchTab('admin'); toggleMobileMenu()" class="w-full text-left px-4 py-3 rounded-xl font-semibold text-dark-900 hover:bg-burgundy-800 hover:text-white transition flex items-center space-x-3">
+                    <i class="fa-solid fa-user-shield"></i><span>Admin Panel</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- MAIN CONTENT CONTAINER -->
+        <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+            <!-- ================= SECTION 1: HOME ================= -->
+            <section id="section-home" class="space-y-12">
+                <div class="relative bg-gradient-to-br from-dark-900 via-burgundy-950 to-dark-900 rounded-3xl p-8 sm:p-12 text-cream-100 overflow-hidden shadow-2xl border border-burgundy-800/30">
+                    <div class="absolute -right-16 -bottom-16 w-80 h-80 bg-burgundy-800/20 rounded-full blur-3xl pointer-events-none"></div>
+                    <div class="relative z-10 max-w-3xl space-y-6">
+                        <span class="inline-flex items-center space-x-2 bg-burgundy-800/60 border border-burgundy-600/40 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide text-cream-200 backdrop-blur-md">
+                            <i class="fa-solid fa-shield-virus text-sm text-cream-100"></i>
+                            <span>Empowering Students in the Digital Era</span>
+                        </span>
+                        <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">
+                            Navigate the Digital World Safely & Ethically
+                        </h1>
+                        <p class="text-cream-300 text-base sm:text-lg leading-relaxed">
+                            CyberSafe is an educational learning platform designed to equip students with critical skills against online scams, phishing attempts, data leaks, and cyber vulnerabilities. Learn, test your knowledge, and practice responsible technology use.
+                        </p>
+                        <div class="flex flex-wrap gap-4 pt-2">
+                            <button onclick="switchTab('modules')" class="bg-burgundy-800 hover:bg-burgundy-700 text-white font-bold px-7 py-3.5 rounded-xl shadow-lg shadow-burgundy-900/40 transition-all duration-200 transform hover:-translate-y-0.5 flex items-center space-x-2">
+                                <span>Explore Modules</span>
+                                <i class="fa-solid fa-arrow-right text-xs"></i>
+                            </button>
+                            <button onclick="switchTab('quiz')" class="bg-cream-100/10 hover:bg-cream-100/20 text-cream-100 border border-cream-100/20 font-bold px-7 py-3.5 rounded-xl transition-all duration-200 backdrop-blur-md flex items-center space-x-2">
+                                <span>Take Assessment</span>
+                                <i class="fa-solid fa-circle-check text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="text-center max-w-2xl mx-auto mb-8 space-y-2">
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-dark-900">Why Student Cybersecurity Matters</h2>
+                        <p class="text-dark-800/70 text-sm">Students are primary targets for cybercriminals due to constant online presence and high usage of social media and campus Wi-Fi networks.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-cream-100 p-6 rounded-2xl border border-cream-300/80 shadow-sm hover:shadow-md transition space-y-3">
+                            <div class="w-12 h-12 bg-burgundy-100 text-burgundy-800 rounded-xl flex items-center justify-center text-xl font-bold">
+                                <i class="fa-solid fa-envelope-open-text"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-dark-900">Phishing & Impersonation</h3>
+                            <p class="text-sm text-dark-800/80 leading-relaxed">Fake scholarship emails, bogus account verification notices, and social engineering scams targeting student credentials.</p>
+                        </div>
+
+                        <div class="bg-cream-100 p-6 rounded-2xl border border-cream-300/80 shadow-sm hover:shadow-md transition space-y-3">
+                            <div class="w-12 h-12 bg-burgundy-100 text-burgundy-800 rounded-xl flex items-center justify-center text-xl font-bold">
+                                <i class="fa-solid fa-lock text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-dark-900">Weak Credentials</h3>
+                            <p class="text-sm text-dark-800/80 leading-relaxed">Reusing passwords across academic portals, entertainment sites, and banking apps significantly escalates identity theft risk.</p>
+                        </div>
+
+                        <div class="bg-cream-100 p-6 rounded-2xl border border-cream-300/80 shadow-sm hover:shadow-md transition space-y-3">
+                            <div class="w-12 h-12 bg-burgundy-100 text-burgundy-800 rounded-xl flex items-center justify-center text-xl font-bold">
+                                <i class="fa-solid fa-wifi"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-dark-900">Unsecured Networks</h3>
+                            <p class="text-sm text-dark-800/80 leading-relaxed">Accessing sensitive personal accounts over public library or campus Wi-Fi without encryption exposes data to interception.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-cream-200/60 rounded-2xl p-6 border border-cream-300 flex flex-col sm:flex-row items-center justify-between gap-6">
+                    <div class="space-y-1">
+                        <h3 class="text-lg font-bold text-dark-900">Test Your Current Password Strength</h3>
+                        <p class="text-sm text-dark-800/80">Use our instant offline analyzer to see if your passwords withstand brute-force attacks.</p>
+                    </div>
+                    <button onclick="switchTab('tool')" class="whitespace-nowrap bg-dark-900 hover:bg-dark-800 text-cream-100 px-6 py-3 rounded-xl font-semibold transition text-sm flex items-center space-x-2">
+                        <i class="fa-solid fa-calculator"></i>
+                        <span>Launch Password Tool</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- ================= SECTION 2: LEARNING MODULES ================= -->
+            <section id="section-modules" class="hidden space-y-8">
+                <div class="border-b border-cream-300 pb-4">
+                    <h2 class="text-3xl font-extrabold text-dark-900">Cybersecurity Learning Modules</h2>
+                    <p class="text-dark-800/70 text-sm mt-1">Select a module below to view detailed lesson guidelines instantly on screen.</p>
+                </div>
+
+                <!-- Module Tabs -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                    <button onclick="loadModule(1)" id="mod-tab-1" class="module-selector-btn bg-burgundy-800 text-white p-4 rounded-xl text-left font-bold border border-burgundy-800 transition shadow-sm flex items-center space-x-3">
+                        <i class="fa-solid fa-fish text-lg"></i>
+                        <div>
+                            <div class="text-xs uppercase opacity-80">Module 01</div>
+                            <div class="text-sm">Phishing Scams</div>
+                        </div>
+                    </button>
+                    <button onclick="loadModule(2)" id="mod-tab-2" class="module-selector-btn bg-cream-100 text-dark-900 p-4 rounded-xl text-left font-bold border border-cream-300 hover:border-burgundy-800 transition shadow-sm flex items-center space-x-3">
+                        <i class="fa-solid fa-key text-lg text-burgundy-800"></i>
+                        <div>
+                            <div class="text-xs uppercase text-dark-800/60">Module 02</div>
+                            <div class="text-sm">Password Security</div>
+                        </div>
+                    </button>
+                    <button onclick="loadModule(3)" id="mod-tab-3" class="module-selector-btn bg-cream-100 text-dark-900 p-4 rounded-xl text-left font-bold border border-cream-300 hover:border-burgundy-800 transition shadow-sm flex items-center space-x-3">
+                        <i class="fa-solid fa-user-shield text-lg text-burgundy-800"></i>
+                        <div>
+                            <div class="text-xs uppercase text-dark-800/60">Module 03</div>
+                            <div class="text-sm">Social Engineering</div>
+                        </div>
+                    </button>
+                    <button onclick="loadModule(4)" id="mod-tab-4" class="module-selector-btn bg-cream-100 text-dark-900 p-4 rounded-xl text-left font-bold border border-cream-300 hover:border-burgundy-800 transition shadow-sm flex items-center space-x-3">
+                        <i class="fa-solid fa-shield-halved text-lg text-burgundy-800"></i>
+                        <div>
+                            <div class="text-xs uppercase text-dark-800/60">Module 04</div>
+                            <div class="text-sm">Public Wi-Fi & Privacy</div>
+                        </div>
+                    </button>
+                </div>
+
+                <!-- Dynamic Module Display -->
+                <div id="module-content-display" class="bg-cream-100 border border-cream-300/80 rounded-2xl p-6 sm:p-8 shadow-sm space-y-6"></div>
+            </section>
+
+            <!-- ================= SECTION 3: PASSWORD CHECKER ================= -->
+            <section id="section-tool" class="hidden space-y-8">
+                <div class="border-b border-cream-300 pb-4">
+                    <h2 class="text-3xl font-extrabold text-dark-900">Interactive Password Strength Evaluator</h2>
+                    <p class="text-dark-800/70 text-sm mt-1">Check how resilient your password is against automated cracking techniques.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                    <div class="lg:col-span-7 bg-cream-100 p-6 sm:p-8 rounded-2xl border border-cream-300 shadow-sm space-y-6">
+                        <div class="space-y-2">
+                            <label for="pass-input" class="block font-bold text-dark-900 text-sm">Enter Test Password:</label>
+                            <div class="relative">
+                                <input type="password" id="pass-input" oninput="evaluatePasswordStrength()" placeholder="Type a sample password..." class="w-full bg-white border border-cream-300 text-dark-900 rounded-xl px-4 py-3.5 pr-12 focus:outline-none focus:ring-2 focus:ring-burgundy-800 text-base">
+                                <button onclick="togglePasswordVisibility()" type="button" class="absolute right-4 top-1/2 -translate-y-1/2 text-dark-800/60 hover:text-dark-900">
+                                    <i id="eye-icon" class="fa-solid fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center text-xs font-bold uppercase tracking-wider">
+                                <span class="text-dark-800/70">Strength Level:</span>
+                                <span id="strength-text" class="text-dark-900">None</span>
+                            </div>
+                            <div class="w-full h-3 bg-cream-200 rounded-full overflow-hidden">
+                                <div id="strength-bar" class="h-full w-0 bg-burgundy-800 transition-all duration-300"></div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-3 pt-2">
+                            <h4 class="text-xs font-bold uppercase text-dark-800/60 tracking-wider">Password Requirements Breakdown</h4>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs font-semibold">
+                                <div id="req-length" class="flex items-center space-x-2 text-dark-800/50">
+                                    <i class="fa-solid fa-circle-xmark text-red-500"></i><span>At least 12 characters long</span>
+                                </div>
+                                <div id="req-upper" class="flex items-center space-x-2 text-dark-800/50">
+                                    <i class="fa-solid fa-circle-xmark text-red-500"></i><span>Uppercase letters (A-Z)</span>
+                                </div>
+                                <div id="req-lower" class="flex items-center space-x-2 text-dark-800/50">
+                                    <i class="fa-solid fa-circle-xmark text-red-500"></i><span>Lowercase letters (a-z)</span>
+                                </div>
+                                <div id="req-number" class="flex items-center space-x-2 text-dark-800/50">
+                                    <i class="fa-solid fa-circle-xmark text-red-500"></i><span>Numbers (0-9)</span>
+                                </div>
+                                <div id="req-symbol" class="flex items-center space-x-2 text-dark-800/50">
+                                    <i class="fa-solid fa-circle-xmark text-red-500"></i><span>Special symbols (!@#$%^&*)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-5 bg-dark-900 text-cream-100 p-6 sm:p-8 rounded-2xl space-y-5 border border-burgundy-900/30 flex flex-col justify-between">
+                        <div class="space-y-4">
+                            <div class="flex items-center space-x-3 text-burgundy-600">
+                                <i class="fa-solid fa-lightbulb text-2xl"></i>
+                                <h3 class="text-lg font-extrabold text-cream-100">Best Security Recommendations</h3>
+                            </div>
+                            <ul class="space-y-3 text-sm text-cream-300">
+                                <li class="flex items-start space-x-2.5">
+                                    <i class="fa-solid fa-check text-burgundy-600 mt-1"></i>
+                                    <span><strong>Use Passphrases:</strong> Combine 4 random words (e.g., <code class="bg-dark-800 text-cream-100 px-1.5 py-0.5 rounded text-xs">Coffee#Window$Bridge9</code>).</span>
+                                </li>
+                                <li class="flex items-start space-x-2.5">
+                                    <i class="fa-solid fa-check text-burgundy-600 mt-1"></i>
+                                    <span><strong>Enable 2FA:</strong> Always activate Two-Factor Authentication on student accounts.</span>
+                                </li>
+                                <li class="flex items-start space-x-2.5">
+                                    <i class="fa-solid fa-check text-burgundy-600 mt-1"></i>
+                                    <span><strong>Password Manager:</strong> Avoid saving passwords in plain text notes.</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-dark-800 p-4 rounded-xl border border-cream-300/10 text-xs text-cream-400">
+                            <i class="fa-solid fa-shield-cat text-burgundy-600 mr-1.5"></i>
+                            <span>Passwords entered here are checked locally in your browser and are never transmitted.</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= SECTION 4: INTERACTIVE QUIZ ================= -->
+            <section id="section-quiz" class="hidden space-y-8">
+                <div class="border-b border-cream-300 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <div>
+                        <h2 class="text-3xl font-extrabold text-dark-900">Interactive Knowledge Assessment</h2>
+                        <p class="text-dark-800/70 text-sm mt-1">Test your understanding of phishing, credentials, and digital ethics.</p>
+                    </div>
+                    <div class="bg-cream-200 border border-cream-300 px-4 py-2 rounded-xl text-xs font-bold text-dark-900 self-start sm:self-auto">
+                        Question <span id="quiz-progress-text">1</span> of 5
+                    </div>
+                </div>
+
+                <div id="quiz-container" class="bg-cream-100 border border-cream-300 rounded-2xl p-6 sm:p-8 shadow-sm space-y-6 max-w-3xl mx-auto">
+                    <div class="space-y-2">
+                        <span id="question-category" class="inline-block bg-burgundy-100 text-burgundy-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Category</span>
+                        <h3 id="question-title" class="text-xl font-bold text-dark-900 leading-snug">Question text loads here</h3>
+                    </div>
+
+                    <div id="quiz-options" class="space-y-3"></div>
+
+                    <div class="pt-4 border-t border-cream-200 flex items-center justify-between">
+                        <div id="quiz-feedback" class="text-xs font-semibold"></div>
+                        <button id="next-btn" onclick="nextQuestion()" class="bg-burgundy-800 hover:bg-burgundy-700 text-white font-bold px-6 py-2.5 rounded-xl transition text-sm flex items-center space-x-2">
+                            <span>Next Question</span>
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="quiz-result-card" class="hidden bg-cream-100 border border-cream-300 rounded-2xl p-8 max-w-xl mx-auto text-center space-y-6 shadow-md">
+                    <div class="w-20 h-20 bg-burgundy-800 text-white rounded-full flex items-center justify-center text-3xl mx-auto shadow-lg">
+                        <i class="fa-solid fa-trophy"></i>
+                    </div>
+                    <div class="space-y-2">
+                        <h3 class="text-2xl font-extrabold text-dark-900">Quiz Completed!</h3>
+                        <p class="text-dark-800/70 text-sm">Here is your cybersecurity knowledge evaluation summary:</p>
+                    </div>
+                    <div class="bg-cream-200 p-6 rounded-xl border border-cream-300 space-y-1">
+                        <div class="text-4xl font-extrabold text-burgundy-800" id="final-score-text">0 / 5</div>
+                        <div class="text-xs uppercase font-bold text-dark-800/60 tracking-wider" id="score-percentage">0% Mastery</div>
+                    </div>
+                    <p id="score-feedback-message" class="text-sm font-medium text-dark-900">Great effort!</p>
+                    <div class="flex justify-center space-x-4">
+                        <button onclick="restartQuiz()" class="bg-burgundy-800 text-white font-bold px-6 py-3 rounded-xl hover:bg-burgundy-700 transition text-sm flex items-center space-x-2">
+                            <i class="fa-solid fa-rotate-right"></i>
+                            <span>Retake Quiz</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= SECTION 5: IT ETHICS & PRIVACY ================= -->
+            <section id="section-ethics" class="hidden space-y-8">
+                <div class="border-b border-cream-300 pb-4">
+                    <h2 class="text-3xl font-extrabold text-dark-900">Professional Ethics & Social Responsibility</h2>
+                    <p class="text-dark-800/70 text-sm mt-1">Understanding legal responsibilities, data privacy laws, and ethical tech behavior.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-cream-100 p-6 rounded-2xl border border-cream-300 space-y-4">
+                        <div class="w-10 h-10 bg-burgundy-800 text-white rounded-xl flex items-center justify-center font-bold">
+                            <i class="fa-solid fa-scale-unbalanced-flip"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-dark-900">Data Privacy & Information Protection</h3>
+                        <p class="text-sm text-dark-800/80 leading-relaxed">
+                            IT professionals and students handling personal data must abide by privacy fundamentals (e.g., Data Privacy Act standards). This includes ensuring consent, confidentiality, and data minimization when building applications or managing student records.
+                        </p>
+                    </div>
+
+                    <div class="bg-cream-100 p-6 rounded-2xl border border-cream-300 space-y-4">
+                        <div class="w-10 h-10 bg-burgundy-800 text-white rounded-xl flex items-center justify-center font-bold">
+                            <i class="fa-solid fa-user-gear"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-dark-900">Responsible Disclosure & Ethics</h3>
+                        <p class="text-sm text-dark-800/80 leading-relaxed">
+                            Discovering a security vulnerability in a campus website or online tool requires <strong>Responsible Disclosure</strong>. Exploiting security flaws for personal gain or unauthorized access is illegal and violates academic ethical standards.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-cream-100 rounded-2xl p-6 sm:p-8 border border-cream-300 space-y-4">
+                    <h3 class="text-lg font-extrabold text-dark-900">The Student Digital Code of Conduct</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+                        <div class="bg-cream-200/80 p-4 rounded-xl border border-cream-300/60 space-y-2">
+                            <div class="font-bold text-burgundy-800 text-sm">1. Respect Privacy</div>
+                            <div class="text-xs text-dark-800/80">Never share personal credentials, ID numbers, or photos of classmates online without explicit consent.</div>
+                        </div>
+                        <div class="bg-cream-200/80 p-4 rounded-xl border border-cream-300/60 space-y-2">
+                            <div class="font-bold text-burgundy-800 text-sm">2. Practice Integrity</div>
+                            <div class="text-xs text-dark-800/80">Avoid downloading or spreading pirated software, malware tools, or keyloggers on shared hardware.</div>
+                        </div>
+                        <div class="bg-cream-200/80 p-4 rounded-xl border border-cream-300/60 space-y-2">
+                            <div class="font-bold text-burgundy-800 text-sm">3. Report Threats</div>
+                            <div class="text-xs text-dark-800/80">Notify campus IT departments when encountering suspicious emails, phishing links, or compromised portals.</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= SECTION 6: ADMIN PANEL PREVIEW ================= -->
+            <section id="section-admin" class="hidden space-y-8">
+                <div class="border-b border-cream-300 pb-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                    <div>
+                        <h2 class="text-3xl font-extrabold text-dark-900">Content Management Admin Panel</h2>
+                        <p class="text-dark-800/70 text-sm mt-1">Backend control panel for instructors/admins to manage educational content.</p>
+                    </div>
+                    <span class="bg-burgundy-800 text-cream-100 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                        Admin Mode Active
+                    </span>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                    <div class="bg-cream-100 p-6 rounded-2xl border border-cream-300 space-y-2">
+                        <span class="text-xs font-bold text-dark-800/60 uppercase tracking-wider">Active Modules</span>
+                        <div class="text-3xl font-extrabold text-dark-900">4</div>
+                        <span class="text-xs text-burgundy-700 font-semibold">Pre-loaded & Ready</span>
+                    </div>
+                    <div class="bg-cream-100 p-6 rounded-2xl border border-cream-300 space-y-2">
+                        <span class="text-xs font-bold text-dark-800/60 uppercase tracking-wider">Session Quizzes Taken</span>
+                        <div class="text-3xl font-extrabold text-dark-900" id="admin-quiz-count">0</div>
+                        <span class="text-xs text-green-700 font-semibold">Live Tracked</span>
+                    </div>
+                    <div class="bg-cream-100 p-6 rounded-2xl border border-cream-300 space-y-2">
+                        <span class="text-xs font-bold text-dark-800/60 uppercase tracking-wider">Tips Added</span>
+                        <div class="text-3xl font-extrabold text-dark-900" id="admin-tip-count">0</div>
+                        <span class="text-xs text-burgundy-700 font-semibold">Session Memory</span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                    <div class="lg:col-span-6 bg-cream-100 p-6 sm:p-8 rounded-2xl border border-cream-300 space-y-4">
+                        <h3 class="text-lg font-bold text-dark-900">Publish New Safety Announcement</h3>
+                        <form onsubmit="handleAddTip(event)" class="space-y-4">
+                            <div>
+                                <label class="block text-xs font-bold text-dark-900 uppercase tracking-wider mb-1">Tip Title</label>
+                                <input type="text" id="admin-tip-title" required placeholder="e.g., Beware of fake exam leak links" class="w-full bg-white border border-cream-300 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-burgundy-800">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-dark-900 uppercase tracking-wider mb-1">Category</label>
+                                <select id="admin-tip-cat" class="w-full bg-white border border-cream-300 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-burgundy-800">
+                                    <option>General Security</option>
+                                    <option>Social Media</option>
+                                    <option>Campus Wi-Fi</option>
+                                    <option>Phishing Alert</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-dark-900 uppercase tracking-wider mb-1">Tip Content</label>
+                                <textarea id="admin-tip-body" required rows="3" placeholder="Enter detailed recommendation..." class="w-full bg-white border border-cream-300 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-burgundy-800"></textarea>
+                            </div>
+                            <button type="submit" class="bg-burgundy-800 hover:bg-burgundy-700 text-white font-bold px-6 py-2.5 rounded-xl text-sm transition flex items-center space-x-2">
+                                <i class="fa-solid fa-plus"></i>
+                                <span>Publish Tip</span>
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="lg:col-span-6 bg-cream-100 p-6 sm:p-8 rounded-2xl border border-cream-300 space-y-4 flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-dark-900 mb-3">Published Student Announcements</h3>
+                            <div id="admin-tips-list" class="space-y-3 max-h-72 overflow-y-auto custom-scrollbar pr-1">
+                                <div class="bg-cream-200 p-4 rounded-xl border border-cream-300 text-xs space-y-1">
+                                    <div class="flex justify-between font-bold text-burgundy-800">
+                                        <span>Always Verify Sender Domain</span>
+                                        <span class="text-dark-800/50 text-[10px]">PRESET</span>
+                                    </div>
+                                    <p class="text-dark-900/80">Check whether emails requesting passcodes come from official university domain extensions.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- FOOTER -->
+        <footer class="bg-dark-900 text-cream-200 border-t border-burgundy-900/40 py-8 mt-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
+                <div class="flex justify-center items-center space-x-3">
+                    <div class="w-8 h-8 bg-burgundy-800 text-white rounded-lg flex items-center justify-center text-sm font-bold">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <span class="text-xl font-bold tracking-tight text-white">Cyber<span class="text-burgundy-600">Safe</span></span>
+                </div>
+                <p class="text-xs text-cream-400 max-w-xl mx-auto">
+                    CyberSafe is a BSIT Educational Awareness Project aimed at improving digital safety literacy, cyber hygiene, and data privacy responsibility among students.
+                </p>
+                <div class="text-[11px] text-cream-400/60">
+                    &copy; 2026 CyberSafe Student Awareness Initiative. All rights reserved.
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // MODULE DATA
+        const modulesData = {
+            1: {
+                title: "Phishing & Email Scams",
+                subtitle: "Recognizing deception, fake URLs, and malicious attachments.",
+                icon: "fa-fish",
+                content: `
+                    <div class="space-y-4">
+                        <h4 class="text-lg font-bold text-burgundy-800">What is Phishing?</h4>
+                        <p class="text-sm text-dark-800/90 leading-relaxed">
+                            Phishing is a social engineering attack where attackers impersonate trustworthy institutions (like your university, bank, or email provider) via email, SMS, or direct message to trick you into revealing sensitive credentials or downloading malware.
+                        </p>
+                        
+                        <h4 class="text-lg font-bold text-burgundy-800 pt-2">Key Red Flags of a Phishing Email</h4>
+                        <ul class="space-y-2 text-sm text-dark-800/90 list-disc list-inside">
+                            <li><strong>Mismatched Sender Address:</strong> The display name says "University Registrar" but the email address is <code class="bg-cream-200 px-1 py-0.5 rounded text-xs">admin-verify@free-web-host.com</code>.</li>
+                            <li><strong>Urgent or Threatening Tone:</strong> Messages claiming "Your account will be terminated in 24 hours unless you log in immediately!"</li>
+                            <li><strong>Generic Greetings:</strong> Using "Dear Student" instead of your registered name.</li>
+                            <li><strong>Suspicious Hyperlinks:</strong> Hover over buttons before clicking to verify the real destination URL.</li>
+                        </ul>
+                    </div>
+                `
+            },
+            2: {
+                title: "Password Security & Multi-Factor Auth (2FA)",
+                subtitle: "Building uncrackable credentials and securing personal accounts.",
+                icon: "fa-key",
+                content: `
+                    <div class="space-y-4">
+                        <h4 class="text-lg font-bold text-burgundy-800">The Power of Password Entropy</h4>
+                        <p class="text-sm text-dark-800/90 leading-relaxed">
+                            Automated cracking tools can test billions of passwords per second. Short passwords like <code class="bg-cream-200 px-1 py-0.5 rounded text-xs">student2024</code> can be cracked almost instantly. Adding length and random character variety drastically increases resistance.
+                        </p>
+
+                        <h4 class="text-lg font-bold text-burgundy-800 pt-2">Core Rules for Password Hygiene</h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+                            <div class="bg-white p-4 rounded-xl border border-cream-300">
+                                <strong class="text-burgundy-800 block mb-1">1. Never Reuse Passwords</strong>
+                                <span class="text-xs text-dark-800/80">If one site experiences a data leak, hackers will try that same password across your email, social media, and academic accounts.</span>
+                            </div>
+                            <div class="bg-white p-4 rounded-xl border border-cream-300">
+                                <strong class="text-burgundy-800 block mb-1">2. Enable Two-Factor (2FA)</strong>
+                                <span class="text-xs text-dark-800/80">2FA requires a secondary verification code even if someone steals your password.</span>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            3: {
+                title: "Social Engineering & Privacy Risks",
+                subtitle: "Protecting personal identity and avoiding over-sharing online.",
+                icon: "fa-user-shield",
+                content: `
+                    <div class="space-y-4">
+                        <h4 class="text-lg font-bold text-burgundy-800">What is Social Engineering?</h4>
+                        <p class="text-sm text-dark-800/90 leading-relaxed">
+                            Social engineering relies on human psychology rather than technical hacking. Attackers manipulate individuals into voluntarily handing over confidential information through trust, fear, or fake urgency.
+                        </p>
+                    </div>
+                `
+            },
+            4: {
+                title: "Public Wi-Fi & Network Safety",
+                subtitle: "Safe browsing habits on campus and public networks.",
+                icon: "fa-shield-halved",
+                content: `
+                    <div class="space-y-4">
+                        <h4 class="text-lg font-bold text-burgundy-800">Risks of Open Wi-Fi Networks</h4>
+                        <p class="text-sm text-dark-800/90 leading-relaxed">
+                            Unencrypted public Wi-Fi networks in coffee shops or libraries allow cybercriminals to intercept data traffic (Man-in-the-Middle attacks).
+                        </p>
+                    </div>
+                `
+            }
+        };
+
+        // QUIZ DATA
+        const quizData = [
+            {
+                category: "Phishing Scams",
+                question: "You receive an email claiming your university account will be suspended unless you click a link and log in immediately. What should you do?",
+                options: [
+                    "Click the link right away to prevent account suspension.",
+                    "Reply to the email asking if it is authentic.",
+                    "Do not click the link; verify directly via official school channels.",
+                    "Forward the link to your classmates to warn them."
+                ],
+                correct: 2
+            },
+            {
+                category: "Password Security",
+                question: "Which of the following is the strongest password strategy?",
+                options: [
+                    "Using your student ID number followed by your birth year.",
+                    "Reusing your main email password for all educational websites.",
+                    "Creating a long passphrase with mixed letters, numbers, and symbols.",
+                    "Writing your password on a sticky note attached to your laptop."
+                ],
+                correct: 2
+            },
+            {
+                category: "Multi-Factor Auth",
+                question: "What benefit does Two-Factor Authentication (2FA) provide?",
+                options: [
+                    "It makes your internet connection twice as fast.",
+                    "It adds a second layer of defense even if an attacker knows your password.",
+                    "It automatically cleans viruses from your computer.",
+                    "It allows you to skip typing your password altogether."
+                ],
+                correct: 1
+            },
+            {
+                category: "Network Safety",
+                question: "Why is accessing personal banking accounts on open public Wi-Fi risky?",
+                options: [
+                    "Public Wi-Fi turns off device Bluetooth.",
+                    "Attackers on the same unencrypted network could intercept data packets.",
+                    "Public Wi-Fi consumes more laptop battery.",
+                    "It causes bank websites to crash automatically."
+                ],
+                correct: 1
+            },
+            {
+                category: "Digital Ethics",
+                question: "If you discover a security flaw in your school's online portal, what is the ethical response?",
+                options: [
+                    "Exploit the flaw to change your grades.",
+                    "Share the flaw on social media to embarrass the institution.",
+                    "Privately notify the IT department through responsible disclosure.",
+                    "Sell the flaw details online."
+                ],
+                correct: 2
+            }
+        ];
+
+        // APP STATE
+        let currentQuizIndex = 0;
+        let score = 0;
+        let selectedOption = null;
+        let quizCompletedCount = 0;
+        let customTipsCount = 0;
+
+        // AUTHENTICATION FUNCTIONS
+        function handleLogin(e) {
+            e.preventDefault();
+            const u = document.getElementById('login-username').value;
+            const p = document.getElementById('login-password').value;
+
+            if (u && p) {
+                grantAccess(u);
+            } else {
+                const alertEl = document.getElementById('login-alert');
+                alertEl.textContent = 'Please enter valid login details.';
+                alertEl.classList.remove('hidden');
+            }
+        }
+
+        function loginAsGuest() {
+            grantAccess('Guest Student');
+        }
+
+        function grantAccess(username) {
+            document.getElementById('login-modal').classList.add('hidden');
+            document.getElementById('main-app').classList.remove('hidden');
+            document.getElementById('user-display-name').textContent = `Welcome, ${username}`;
+            loadModule(1);
+            renderQuestion();
+        }
+
+        function logout() {
+            document.getElementById('main-app').classList.add('hidden');
+            document.getElementById('login-modal').classList.remove('hidden');
+        }
+
+        // TABS
+        function switchTab(tabId) {
+            const sections = ['home', 'modules', 'tool', 'quiz', 'ethics', 'admin'];
+            sections.forEach(id => {
+                document.getElementById(`section-${id}`).classList.add('hidden');
+                const navBtn = document.getElementById(`nav-${id}`);
+                if (navBtn) navBtn.classList.remove('active');
+            });
+
+            document.getElementById(`section-${tabId}`).classList.remove('hidden');
+            const activeNav = document.getElementById(`nav-${tabId}`);
+            if (activeNav) activeNav.classList.add('active');
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        }
+
+        // MODULE RENDER
+        function loadModule(modId) {
+            for (let i = 1; i <= 4; i++) {
+                const btn = document.getElementById(`mod-tab-${i}`);
+                if (i === modId) {
+                    btn.className = "module-selector-btn bg-burgundy-800 text-white p-4 rounded-xl text-left font-bold border border-burgundy-800 transition shadow-sm flex items-center space-x-3";
+                } else {
+                    btn.className = "module-selector-btn bg-cream-100 text-dark-900 p-4 rounded-xl text-left font-bold border border-cream-300 hover:border-burgundy-800 transition shadow-sm flex items-center space-x-3";
+                }
+            }
+
+            const data = modulesData[modId];
+            document.getElementById('module-content-display').innerHTML = `
+                <div class="border-b border-cream-300 pb-4 space-y-1">
+                    <div class="flex items-center space-x-2 text-xs font-bold uppercase tracking-wider text-burgundy-800">
+                        <i class="fa-solid ${data.icon}"></i>
+                        <span>Educational Lesson Module 0${modId}</span>
+                    </div>
+                    <h3 class="text-2xl font-extrabold text-dark-900">${data.title}</h3>
+                    <p class="text-xs text-dark-800/70">${data.subtitle}</p>
+                </div>
+                <div>${data.content}</div>
+            `;
+        }
+
+        // PASSWORD STRENGTH
+        function evaluatePasswordStrength() {
+            const val = document.getElementById('pass-input').value;
+            const bar = document.getElementById('strength-bar');
+            const text = document.getElementById('strength-text');
+
+            let scoreVal = 0;
+            const hasLen = val.length >= 12;
+            const hasUpper = /[A-Z]/.test(val);
+            const hasLower = /[a-z]/.test(val);
+            const hasNum = /[0-9]/.test(val);
+            const hasSym = /[^A-Za-z0-9]/.test(val);
+
+            updateReqUI(document.getElementById('req-length'), hasLen, "At least 12 characters long");
+            updateReqUI(document.getElementById('req-upper'), hasUpper, "Uppercase letters (A-Z)");
+            updateReqUI(document.getElementById('req-lower'), hasLower, "Lowercase letters (a-z)");
+            updateReqUI(document.getElementById('req-number'), hasNum, "Numbers (0-9)");
+            updateReqUI(document.getElementById('req-symbol'), hasSym, "Special symbols (!@#$%^&*)");
+
+            if (val.length > 0) scoreVal++;
+            if (hasLen) scoreVal++;
+            if (hasUpper && hasLower) scoreVal++;
+            if (hasNum) scoreVal++;
+            if (hasSym) scoreVal++;
+
+            if (val.length === 0) {
+                bar.style.width = '0%';
+                text.textContent = 'None';
+            } else if (scoreVal <= 2) {
+                bar.style.width = '25%';
+                bar.className = 'h-full bg-red-600 transition-all duration-300';
+                text.textContent = 'Weak';
+            } else if (scoreVal <= 4) {
+                bar.style.width = '65%';
+                bar.className = 'h-full bg-amber-600 transition-all duration-300';
+                text.textContent = 'Moderate';
+            } else {
+                bar.style.width = '100%';
+                bar.className = 'h-full bg-burgundy-800 transition-all duration-300';
+                text.textContent = 'Strong (Excellent)';
+            }
+        }
+
+        function updateReqUI(el, isValid, label) {
+            if (isValid) {
+                el.className = "flex items-center space-x-2 text-burgundy-800 font-semibold";
+                el.innerHTML = `<i class="fa-solid fa-circle-check text-burgundy-800"></i><span>${label}</span>`;
+            } else {
+                el.className = "flex items-center space-x-2 text-dark-800/40";
+                el.innerHTML = `<i class="fa-solid fa-circle-xmark text-red-500"></i><span>${label}</span>`;
+            }
+        }
+
+        function togglePasswordVisibility() {
+            const input = document.getElementById('pass-input');
+            const icon = document.getElementById('eye-icon');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.className = 'fa-solid fa-eye-slash';
+            } else {
+                input.type = 'password';
+                icon.className = 'fa-solid fa-eye';
+            }
+        }
+
+        // QUIZ ENGINE
+        function renderQuestion() {
+            const q = quizData[currentQuizIndex];
+            selectedOption = null;
+
+            document.getElementById('quiz-progress-text').textContent = currentQuizIndex + 1;
+            document.getElementById('question-category').textContent = q.category;
+            document.getElementById('question-title').textContent = q.question;
+            document.getElementById('quiz-feedback').innerHTML = '';
+
+            const optionsContainer = document.getElementById('quiz-options');
+            optionsContainer.innerHTML = '';
+
+            q.options.forEach((opt, idx) => {
+                const optBtn = document.createElement('button');
+                optBtn.className = 'w-full text-left p-4 rounded-xl border border-cream-300 bg-white hover:border-burgundy-800 transition text-sm font-medium text-dark-900 flex items-center justify-between space-x-3';
+                optBtn.onclick = () => selectOption(idx, optBtn);
+                optBtn.innerHTML = `
+                    <div class="flex items-center space-x-3">
+                        <span class="w-7 h-7 rounded-full bg-cream-200 text-burgundy-800 flex items-center justify-center font-bold text-xs border border-cream-300">${String.fromCharCode(65 + idx)}</span>
+                        <span>${opt}</span>
+                    </div>
+                `;
+                optionsContainer.appendChild(optBtn);
+            });
+        }
+
+        function selectOption(idx, element) {
+            selectedOption = idx;
+            document.querySelectorAll('#quiz-options button').forEach(btn => {
+                btn.className = 'w-full text-left p-4 rounded-xl border border-cream-300 bg-white hover:border-burgundy-800 transition text-sm font-medium text-dark-900 flex items-center justify-between space-x-3';
+            });
+            element.className = 'w-full text-left p-4 rounded-xl border-2 border-burgundy-800 bg-burgundy-50 transition text-sm font-bold text-dark-900 flex items-center justify-between space-x-3';
+        }
+
+        function nextQuestion() {
+            if (selectedOption === null) {
+                document.getElementById('quiz-feedback').innerHTML = `<span class="text-red-600 font-bold">Please select an answer to continue.</span>`;
+                return;
+            }
+
+            if (selectedOption === quizData[currentQuizIndex].correct) {
+                score++;
+            }
+
+            currentQuizIndex++;
+            if (currentQuizIndex < quizData.length) {
+                renderQuestion();
+            } else {
+                showQuizResults();
+            }
+        }
+
+        function showQuizResults() {
+            document.getElementById('quiz-container').classList.add('hidden');
+            document.getElementById('quiz-result-card').classList.remove('hidden');
+            document.getElementById('final-score-text').textContent = `${score} / ${quizData.length}`;
+            const percentage = Math.round((score / quizData.length) * 100);
+            document.getElementById('score-percentage').textContent = `${percentage}% Mastery Level`;
+
+            quizCompletedCount++;
+            document.getElementById('admin-quiz-count').textContent = quizCompletedCount;
+        }
+
+        function restartQuiz() {
+            currentQuizIndex = 0;
+            score = 0;
+            selectedOption = null;
+            document.getElementById('quiz-result-card').classList.add('hidden');
+            document.getElementById('quiz-container').classList.remove('hidden');
+            renderQuestion();
+        }
+
+        // ADMIN TIPS
+        function handleAddTip(e) {
+            e.preventDefault();
+            const title = document.getElementById('admin-tip-title').value;
+            const cat = document.getElementById('admin-tip-cat').value;
+            const body = document.getElementById('admin-tip-body').value;
+
+            const tipEl = document.createElement('div');
+            tipEl.className = 'bg-cream-200 p-4 rounded-xl border border-cream-300 text-xs space-y-1';
+            tipEl.innerHTML = `
+                <div class="flex justify-between font-bold text-burgundy-800">
+                    <span>${title}</span>
+                    <span class="text-burgundy-900 bg-burgundy-100 px-1.5 py-0.5 rounded text-[10px] uppercase">${cat}</span>
+                </div>
+                <p class="text-dark-900/80">${body}</p>
+            `;
+            document.getElementById('admin-tips-list').prepend(tipEl);
+
+            document.getElementById('admin-tip-title').value = '';
+            document.getElementById('admin-tip-body').value = '';
+            customTipsCount++;
+            document.getElementById('admin-tip-count').textContent = customTipsCount;
+        }
+    </script>
+</body>
+</html>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        burgundy: {
+                            50: '#fdf2f4',
+                            100: '#fbe5e9',
+                            200: '#f7ced6',
+                            600: '#9b2c44',
+                            700: '#801f34',
+                            800: '#6b1d2f',
+                            900: '#521422',
+                            950: '#340a13',
+                        },
+                        cream: {
+                            50: '#fefefe',
+                            100: '#fdfaf5',
+                            200: '#f5efe6',
+                            300: '#e8dec9',
+                            400: '#d7c5a6',
+                        },
+                        dark: {
+                            800: '#1f1f1f',
+                            900: '#121212',
+                            950: '#0a0a0a',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #fdfaf5;
+            color: #121212;
+        }
+        .tab-btn.active {
+            background-color: #6b1d2f;
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(107, 29, 47, 0.3);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f5efe6;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #6b1d2f;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-burgundy-800 selection:text-cream-100 relative">
+
+    <!-- LOGIN MODAL / SCREEN (FORCE LOGIN FIRST) -->
+    <div id="login-modal" class="fixed inset-0 z-[100] bg-dark-900/90 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="bg-cream-100 border border-burgundy-900/40 w-full max-w-md rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6 relative overflow-hidden">
+            <div class="absolute -top-12 -right-12 w-32 h-32 bg-burgundy-800/10 rounded-full blur-2xl pointer-events-none"></div>
+
+            <!-- Brand Header -->
+            <div class="text-center space-y-2">
+                <div class="w-16 h-16 bg-burgundy-800 text-cream-100 rounded-2xl flex items-center justify-center text-3xl mx-auto shadow-lg shadow-burgundy-900/30">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <h2 class="text-2xl font-extrabold text-dark-900 tracking-tight">Cyber<span class="text-burgundy-800">Safe</span> Portal</h2>
+                <p class="text-xs text-dark-800/70">Sign in to access student cybersecurity learning modules, interactive tools, and quizzes.</p>
+            </div>
+
+            <!-- Login Form -->
+            <form onsubmit="handleLogin(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-dark-900 uppercase tracking-wider mb-1">Student / User ID</label>
+                    <div class="relative">
+                        <input type="text" id="login-username" placeholder="Enter your Student ID or Username" required class="w-full bg-white border border-cream-300 text-dark-900 text-sm rounded-xl px-4 py-3 pl-10 focus:outline-none focus:ring-2 focus:ring-burgundy-800">
+                        <i class="fa-solid fa-user absolute left-3.5 top-1/2 -translate-y-1/2 text-dark-800/40 text-sm"></i>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-dark-900 uppercase tracking-wider mb-1">Password</label>
+                    <div class="relative">
+                        <input type="password" id="login-password" placeholder="Enter your password" required class="w-full bg-white border border-cream-300 text-dark-900 text-sm rounded-xl px-4 py-3 pl-10 focus:outline-none focus:ring-2 focus:ring-burgundy-800">
+                        <i class="fa-solid fa-lock absolute left-3.5 top-1/2 -translate-y-1/2 text-dark-800/40 text-sm"></i>
+                    </div>
+                </div>
+
+                <div id="login-alert" class="hidden text-xs text-red-600 font-bold bg-red-50 border border-red-200 p-2.5 rounded-xl text-center"></div>
+
+                <button type="submit" class="w-full bg-burgundy-800 hover:bg-burgundy-700 text-white font-bold py-3 rounded-xl transition shadow-md shadow-burgundy-900/20 text-sm flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-right-to-bracket"></i>
+                    <span>Log In to CyberSafe</span>
+                </button>
+            </form>
+
+            <div class="relative flex py-1 items-center">
+                <div class="flex-grow border-t border-cream-300"></div>
+                <span class="flex-shrink mx-3 text-[11px] uppercase tracking-wider font-bold text-dark-800/50">Or Guest Access</span>
+                <div class="flex-grow border-t border-cream-300"></div>
+            </div>
+
+            <!-- Guest Quick Login -->
+            <button onclick="loginAsGuest()" class="w-full bg-cream-200 hover:bg-cream-300 border border-cream-300 text-dark-900 font-bold py-3 rounded-xl transition text-sm flex items-center justify-center space-x-2">
+                <i class="fa-solid fa-user-graduate text-burgundy-800"></i>
+                <span>Enter as Guest Student</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- MAIN PLATFORM CONTENT (Locked until login) -->
+    <div id="main-app" class="hidden min-h-screen flex flex-col justify-between">
+
+        <!-- Top Announcement Bar -->
+        <div class="bg-dark-900 text-cream-200 text-xs py-2 px-4 flex justify-between items-center border-b border-burgundy-900/40">
+            <div class="flex items-center space-x-2">
+                <i class="fa-solid fa-graduation-cap text-burgundy-600"></i>
+                <span>BSIT Capstone Educational Project — Cyber Safety & Ethics Awareness</span>
+            </div>
+            <div class="flex items-center space-x-3 text-[11px]">
+                <span id="user-display-name" class="font-bold text-cream-100">Welcome, Student</span>
+                <button onclick="logout()" class="text-burgundy-200 hover:text-white underline text-xs font-semibold">
+                    <i class="fa-solid fa-arrow-right-from-bracket mr-1"></i>Logout
+                </button>
+            </div>
+        </div>
+
+        <!-- Navigation Header -->
+        <header class="sticky top-0 z-50 bg-cream-100/95 backdrop-blur-md border-b border-cream-300/60 shadow-sm">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-20">
+                    <!-- Brand Logo -->
+                    <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('home')">
+                        <div class="w-12 h-12 bg-burgundy-800 rounded-xl flex items-center justify-center text-cream-100 shadow-md shadow-burgundy-900/20">
+                            <i class="fa-solid fa-shield-halved text-2xl"></i>
+                        </div>
+                        <div>
+                            <span class="text-2xl font-extrabold tracking-tight text-dark-900">Cyber<span class="text-burgundy-800">Safe</span></span>
+                            <span class="block text-xs font-semibold text-burgundy-700 tracking-widest uppercase">Student Awareness</span>
+                        </div>
+                    </div>
+
+                    <!-- Desktop Nav Tabs -->
+                    <nav class="hidden md:flex space-x-1 bg-cream-200 p-1.5 rounded-2xl border border-cream-300/50">
+                        <button onclick="switchTab('home')" id="nav-home" class="tab-btn active px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200 flex items-center space-x-2">
+                            <i class="fa-solid fa-house text-xs"></i><span>Home</span>
+                        </button>
+                        <button onclick="switchTab('modules')" id="nav-modules" class="tab-btn px-4 py-2 rounded-xl text-sm font-semibold text-dark-800 hover:text-burgundy-800 transition-all duration-200 flex items-center space-x-2">
+                            <i class="fa-solid fa-book-open text-xs"></i><span>Modules</span>
+                        </button>
+                        <button onclick="switchTab('tool')" id="nav-tool" class="tab-btn px-4 py-2 rounded-xl text-sm font-semibold text-dark-800 hover:text-burgundy-800 transition-all duration-200 flex items-center space-x-2">
+                            <i class="fa-solid fa-key text-xs"></i><span>Password Check</span>
+                        </button>
+                        <button onclick="switchTab('quiz')" id="nav-quiz" class="tab-btn px-4 py-2 rounded-xl text-sm font-semibold text-dark-800 hover:text-burgundy-800 transition-all duration-200 flex items-center space-x-2">
+                            <i class="fa-solid fa-list-check text-xs"></i><span>Interactive Quiz</span>
+                        </button>
+                        <button onclick="switchTab('ethics')" id="nav-ethics" class="tab-btn px-4 py-2 rounded-xl text-sm font-semibold text-dark-800 hover:text-burgundy-800 transition-all duration-200 flex items-center space-x-2">
+                            <i class="fa-solid fa-scale-balanced text-xs"></i><span>IT Ethics</span>
+                        </button>
+                        <button onclick="switchTab('admin')" id="nav-admin" class="tab-btn px-4 py-2 rounded-xl text-sm font-semibold text-dark-800 hover:text-burgundy-800 transition-all duration-200 flex items-center space-x-2">
+                            <i class="fa-solid fa-user-shield text-xs"></i><span>Admin</span>
+                        </button>
+                    </nav>
+
+                    <!-- Mobile Menu Button -->
+                    <div class="md:hidden flex items-center">
+                        <button onclick="toggleMobileMenu()" class="p-2.5 rounded-xl text-dark-900 bg-cream-200 hover:bg-cream-300 transition">
+                            <i class="fa-solid fa-bars text-xl"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile Navigation Menu -->
+            <div id="mobile-menu" class="hidden md:hidden bg-cream-100 border-b border-cream-300 px-4 pt-2 pb-4 space-y-2">
+                <button onclick="switchTab('home'); toggleMobileMenu()" class="w-full text-left px-4 py-3 rounded-xl font-semibold text-dark-900 hover:bg-burgundy-800 hover:text-white transition flex items-center space-x-3">
+                    <i class="fa-solid fa-house"></i><span>Home Overview</span>
+                </button>
+                <button onclick="switchTab('modules'); toggleMobileMenu()" class="w-full text-left px-4 py-3 rounded-xl font-semibold text-dark-900 hover:bg-burgundy-800 hover:text-white transition flex items-center space-x-3">
+                    <i class="fa-solid fa-book-open"></i><span>Learning Modules</span>
+                </button>
+                <button onclick="switchTab('tool'); toggleMobileMenu()" class="w-full text-left px-4 py-3 rounded-xl font-semibold text-dark-900 hover:bg-burgundy-800 hover:text-white transition flex items-center space-x-3">
+                    <i class="fa-solid fa-key"></i><span>Password Checker</span>
+                </button>
+                <button onclick="switchTab('quiz'); toggleMobileMenu()" class="w-full text-left px-4 py-3 rounded-xl font-semibold text-dark-900 hover:bg-burgundy-800 hover:text-white transition flex items-center space-x-3">
+                    <i class="fa-solid fa-list-check"></i><span>Interactive Quiz</span>
+                </button>
+                <button onclick="switchTab('ethics'); toggleMobileMenu()" class="w-full text-left px-4 py-3 rounded-xl font-semibold text-dark-900 hover:bg-burgundy-800 hover:text-white transition flex items-center space-x-3">
+                    <i class="fa-solid fa-scale-balanced"></i><span>Ethics & Responsibility</span>
+                </button>
+                <button onclick="switchTab('admin'); toggleMobileMenu()" class="w-full text-left px-4 py-3 rounded-xl font-semibold text-dark-900 hover:bg-burgundy-800 hover:text-white transition flex items-center space-x-3">
+                    <i class="fa-solid fa-user-shield"></i><span>Admin Panel</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- MAIN CONTENT CONTAINER -->
+        <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+            <!-- ================= SECTION 1: HOME ================= -->
+            <section id="section-home" class="space-y-12">
+                <div class="relative bg-gradient-to-br from-dark-900 via-burgundy-950 to-dark-900 rounded-3xl p-8 sm:p-12 text-cream-100 overflow-hidden shadow-2xl border border-burgundy-800/30">
+                    <div class="absolute -right-16 -bottom-16 w-80 h-80 bg-burgundy-800/20 rounded-full blur-3xl pointer-events-none"></div>
+                    <div class="relative z-10 max-w-3xl space-y-6">
+                        <span class="inline-flex items-center space-x-2 bg-burgundy-800/60 border border-burgundy-600/40 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide text-cream-200 backdrop-blur-md">
+                            <i class="fa-solid fa-shield-virus text-sm text-cream-100"></i>
+                            <span>Empowering Students in the Digital Era</span>
+                        </span>
+                        <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">
+                            Navigate the Digital World Safely & Ethically
+                        </h1>
+                        <p class="text-cream-300 text-base sm:text-lg leading-relaxed">
+                            CyberSafe is an educational learning platform designed to equip students with critical skills against online scams, phishing attempts, data leaks, and cyber vulnerabilities. Learn, test your knowledge, and practice responsible technology use.
+                        </p>
+                        <div class="flex flex-wrap gap-4 pt-2">
+                            <button onclick="switchTab('modules')" class="bg-burgundy-800 hover:bg-burgundy-700 text-white font-bold px-7 py-3.5 rounded-xl shadow-lg shadow-burgundy-900/40 transition-all duration-200 transform hover:-translate-y-0.5 flex items-center space-x-2">
+                                <span>Explore Modules</span>
+                                <i class="fa-solid fa-arrow-right text-xs"></i>
+                            </button>
+                            <button onclick="switchTab('quiz')" class="bg-cream-100/10 hover:bg-cream-100/20 text-cream-100 border border-cream-100/20 font-bold px-7 py-3.5 rounded-xl transition-all duration-200 backdrop-blur-md flex items-center space-x-2">
+                                <span>Take Assessment</span>
+                                <i class="fa-solid fa-circle-check text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="text-center max-w-2xl mx-auto mb-8 space-y-2">
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-dark-900">Why Student Cybersecurity Matters</h2>
+                        <p class="text-dark-800/70 text-sm">Students are primary targets for cybercriminals due to constant online presence and high usage of social media and campus Wi-Fi networks.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-cream-100 p-6 rounded-2xl border border-cream-300/80 shadow-sm hover:shadow-md transition space-y-3">
+                            <div class="w-12 h-12 bg-burgundy-100 text-burgundy-800 rounded-xl flex items-center justify-center text-xl font-bold">
+                                <i class="fa-solid fa-envelope-open-text"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-dark-900">Phishing & Impersonation</h3>
+                            <p class="text-sm text-dark-800/80 leading-relaxed">Fake scholarship emails, bogus account verification notices, and social engineering scams targeting student credentials.</p>
+                        </div>
+
+                        <div class="bg-cream-100 p-6 rounded-2xl border border-cream-300/80 shadow-sm hover:shadow-md transition space-y-3">
+                            <div class="w-12 h-12 bg-burgundy-100 text-burgundy-800 rounded-xl flex items-center justify-center text-xl font-bold">
+                                <i class="fa-solid fa-lock text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-dark-900">Weak Credentials</h3>
+                            <p class="text-sm text-dark-800/80 leading-relaxed">Reusing passwords across academic portals, entertainment sites, and banking apps significantly escalates identity theft risk.</p>
+                        </div>
+
+                        <div class="bg-cream-100 p-6 rounded-2xl border border-cream-300/80 shadow-sm hover:shadow-md transition space-y-3">
+                            <div class="w-12 h-12 bg-burgundy-100 text-burgundy-800 rounded-xl flex items-center justify-center text-xl font-bold">
+                                <i class="fa-solid fa-wifi"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-dark-900">Unsecured Networks</h3>
+                            <p class="text-sm text-dark-800/80 leading-relaxed">Accessing sensitive personal accounts over public library or campus Wi-Fi without encryption exposes data to interception.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-cream-200/60 rounded-2xl p-6 border border-cream-300 flex flex-col sm:flex-row items-center justify-between gap-6">
+                    <div class="space-y-1">
+                        <h3 class="text-lg font-bold text-dark-900">Test Your Current Password Strength</h3>
+                        <p class="text-sm text-dark-800/80">Use our instant offline analyzer to see if your passwords withstand brute-force attacks.</p>
+                    </div>
+                    <button onclick="switchTab('tool')" class="whitespace-nowrap bg-dark-900 hover:bg-dark-800 text-cream-100 px-6 py-3 rounded-xl font-semibold transition text-sm flex items-center space-x-2">
+                        <i class="fa-solid fa-calculator"></i>
+                        <span>Launch Password Tool</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- ================= SECTION 2: LEARNING MODULES ================= -->
+            <section id="section-modules" class="hidden space-y-8">
+                <div class="border-b border-cream-300 pb-4">
+                    <h2 class="text-3xl font-extrabold text-dark-900">Cybersecurity Learning Modules</h2>
+                    <p class="text-dark-800/70 text-sm mt-1">Select a module below to view detailed lesson guidelines instantly on screen.</p>
+                </div>
+
+                <!-- Module Tabs -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                    <button onclick="loadModule(1)" id="mod-tab-1" class="module-selector-btn bg-burgundy-800 text-white p-4 rounded-xl text-left font-bold border border-burgundy-800 transition shadow-sm flex items-center space-x-3">
+                        <i class="fa-solid fa-fish text-lg"></i>
+                        <div>
+                            <div class="text-xs uppercase opacity-80">Module 01</div>
+                            <div class="text-sm">Phishing Scams</div>
+                        </div>
+                    </button>
+                    <button onclick="loadModule(2)" id="mod-tab-2" class="module-selector-btn bg-cream-100 text-dark-900 p-4 rounded-xl text-left font-bold border border-cream-300 hover:border-burgundy-800 transition shadow-sm flex items-center space-x-3">
+                        <i class="fa-solid fa-key text-lg text-burgundy-800"></i>
+                        <div>
+                            <div class="text-xs uppercase text-dark-800/60">Module 02</div>
+                            <div class="text-sm">Password Security</div>
+                        </div>
+                    </button>
+                    <button onclick="loadModule(3)" id="mod-tab-3" class="module-selector-btn bg-cream-100 text-dark-900 p-4 rounded-xl text-left font-bold border border-cream-300 hover:border-burgundy-800 transition shadow-sm flex items-center space-x-3">
+                        <i class="fa-solid fa-user-shield text-lg text-burgundy-800"></i>
+                        <div>
+                            <div class="text-xs uppercase text-dark-800/60">Module 03</div>
+                            <div class="text-sm">Social Engineering</div>
+                        </div>
+                    </button>
+                    <button onclick="loadModule(4)" id="mod-tab-4" class="module-selector-btn bg-cream-100 text-dark-900 p-4 rounded-xl text-left font-bold border border-cream-300 hover:border-burgundy-800 transition shadow-sm flex items-center space-x-3">
+                        <i class="fa-solid fa-shield-halved text-lg text-burgundy-800"></i>
+                        <div>
+                            <div class="text-xs uppercase text-dark-800/60">Module 04</div>
+                            <div class="text-sm">Public Wi-Fi & Privacy</div>
+                        </div>
+                    </button>
+                </div>
+
+                <!-- Dynamic Module Display -->
+                <div id="module-content-display" class="bg-cream-100 border border-cream-300/80 rounded-2xl p-6 sm:p-8 shadow-sm space-y-6"></div>
+            </section>
+
+            <!-- ================= SECTION 3: PASSWORD CHECKER ================= -->
+            <section id="section-tool" class="hidden space-y-8">
+                <div class="border-b border-cream-300 pb-4">
+                    <h2 class="text-3xl font-extrabold text-dark-900">Interactive Password Strength Evaluator</h2>
+                    <p class="text-dark-800/70 text-sm mt-1">Check how resilient your password is against automated cracking techniques.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                    <div class="lg:col-span-7 bg-cream-100 p-6 sm:p-8 rounded-2xl border border-cream-300 shadow-sm space-y-6">
+                        <div class="space-y-2">
+                            <label for="pass-input" class="block font-bold text-dark-900 text-sm">Enter Test Password:</label>
+                            <div class="relative">
+                                <input type="password" id="pass-input" oninput="evaluatePasswordStrength()" placeholder="Type a sample password..." class="w-full bg-white border border-cream-300 text-dark-900 rounded-xl px-4 py-3.5 pr-12 focus:outline-none focus:ring-2 focus:ring-burgundy-800 text-base">
+                                <button onclick="togglePasswordVisibility()" type="button" class="absolute right-4 top-1/2 -translate-y-1/2 text-dark-800/60 hover:text-dark-900">
+                                    <i id="eye-icon" class="fa-solid fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center text-xs font-bold uppercase tracking-wider">
+                                <span class="text-dark-800/70">Strength Level:</span>
+                                <span id="strength-text" class="text-dark-900">None</span>
+                            </div>
+                            <div class="w-full h-3 bg-cream-200 rounded-full overflow-hidden">
+                                <div id="strength-bar" class="h-full w-0 bg-burgundy-800 transition-all duration-300"></div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-3 pt-2">
+                            <h4 class="text-xs font-bold uppercase text-dark-800/60 tracking-wider">Password Requirements Breakdown</h4>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs font-semibold">
+                                <div id="req-length" class="flex items-center space-x-2 text-dark-800/50">
+                                    <i class="fa-solid fa-circle-xmark text-red-500"></i><span>At least 12 characters long</span>
+                                </div>
+                                <div id="req-upper" class="flex items-center space-x-2 text-dark-800/50">
+                                    <i class="fa-solid fa-circle-xmark text-red-500"></i><span>Uppercase letters (A-Z)</span>
+                                </div>
+                                <div id="req-lower" class="flex items-center space-x-2 text-dark-800/50">
+                                    <i class="fa-solid fa-circle-xmark text-red-500"></i><span>Lowercase letters (a-z)</span>
+                                </div>
+                                <div id="req-number" class="flex items-center space-x-2 text-dark-800/50">
+                                    <i class="fa-solid fa-circle-xmark text-red-500"></i><span>Numbers (0-9)</span>
+                                </div>
+                                <div id="req-symbol" class="flex items-center space-x-2 text-dark-800/50">
+                                    <i class="fa-solid fa-circle-xmark text-red-500"></i><span>Special symbols (!@#$%^&*)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-5 bg-dark-900 text-cream-100 p-6 sm:p-8 rounded-2xl space-y-5 border border-burgundy-900/30 flex flex-col justify-between">
+                        <div class="space-y-4">
+                            <div class="flex items-center space-x-3 text-burgundy-600">
+                                <i class="fa-solid fa-lightbulb text-2xl"></i>
+                                <h3 class="text-lg font-extrabold text-cream-100">Best Security Recommendations</h3>
+                            </div>
+                            <ul class="space-y-3 text-sm text-cream-300">
+                                <li class="flex items-start space-x-2.5">
+                                    <i class="fa-solid fa-check text-burgundy-600 mt-1"></i>
+                                    <span><strong>Use Passphrases:</strong> Combine 4 random words (e.g., <code class="bg-dark-800 text-cream-100 px-1.5 py-0.5 rounded text-xs">Coffee#Window$Bridge9</code>).</span>
+                                </li>
+                                <li class="flex items-start space-x-2.5">
+                                    <i class="fa-solid fa-check text-burgundy-600 mt-1"></i>
+                                    <span><strong>Enable 2FA:</strong> Always activate Two-Factor Authentication on student accounts.</span>
+                                </li>
+                                <li class="flex items-start space-x-2.5">
+                                    <i class="fa-solid fa-check text-burgundy-600 mt-1"></i>
+                                    <span><strong>Password Manager:</strong> Avoid saving passwords in plain text notes.</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-dark-800 p-4 rounded-xl border border-cream-300/10 text-xs text-cream-400">
+                            <i class="fa-solid fa-shield-cat text-burgundy-600 mr-1.5"></i>
+                            <span>Passwords entered here are checked locally in your browser and are never transmitted.</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= SECTION 4: INTERACTIVE QUIZ ================= -->
+            <section id="section-quiz" class="hidden space-y-8">
+                <div class="border-b border-cream-300 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <div>
+                        <h2 class="text-3xl font-extrabold text-dark-900">Interactive Knowledge Assessment</h2>
+                        <p class="text-dark-800/70 text-sm mt-1">Test your understanding of phishing, credentials, and digital ethics.</p>
+                    </div>
+                    <div class="bg-cream-200 border border-cream-300 px-4 py-2 rounded-xl text-xs font-bold text-dark-900 self-start sm:self-auto">
+                        Question <span id="quiz-progress-text">1</span> of 5
+                    </div>
+                </div>
+
+                <div id="quiz-container" class="bg-cream-100 border border-cream-300 rounded-2xl p-6 sm:p-8 shadow-sm space-y-6 max-w-3xl mx-auto">
+                    <div class="space-y-2">
+                        <span id="question-category" class="inline-block bg-burgundy-100 text-burgundy-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Category</span>
+                        <h3 id="question-title" class="text-xl font-bold text-dark-900 leading-snug">Question text loads here</h3>
+                    </div>
+
+                    <div id="quiz-options" class="space-y-3"></div>
+
+                    <div class="pt-4 border-t border-cream-200 flex items-center justify-between">
+                        <div id="quiz-feedback" class="text-xs font-semibold"></div>
+                        <button id="next-btn" onclick="nextQuestion()" class="bg-burgundy-800 hover:bg-burgundy-700 text-white font-bold px-6 py-2.5 rounded-xl transition text-sm flex items-center space-x-2">
+                            <span>Next Question</span>
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="quiz-result-card" class="hidden bg-cream-100 border border-cream-300 rounded-2xl p-8 max-w-xl mx-auto text-center space-y-6 shadow-md">
+                    <div class="w-20 h-20 bg-burgundy-800 text-white rounded-full flex items-center justify-center text-3xl mx-auto shadow-lg">
+                        <i class="fa-solid fa-trophy"></i>
+                    </div>
+                    <div class="space-y-2">
+                        <h3 class="text-2xl font-extrabold text-dark-900">Quiz Completed!</h3>
+                        <p class="text-dark-800/70 text-sm">Here is your cybersecurity knowledge evaluation summary:</p>
+                    </div>
+                    <div class="bg-cream-200 p-6 rounded-xl border border-cream-300 space-y-1">
+                        <div class="text-4xl font-extrabold text-burgundy-800" id="final-score-text">0 / 5</div>
+                        <div class="text-xs uppercase font-bold text-dark-800/60 tracking-wider" id="score-percentage">0% Mastery</div>
+                    </div>
+                    <p id="score-feedback-message" class="text-sm font-medium text-dark-900">Great effort!</p>
+                    <div class="flex justify-center space-x-4">
+                        <button onclick="restartQuiz()" class="bg-burgundy-800 text-white font-bold px-6 py-3 rounded-xl hover:bg-burgundy-700 transition text-sm flex items-center space-x-2">
+                            <i class="fa-solid fa-rotate-right"></i>
+                            <span>Retake Quiz</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= SECTION 5: IT ETHICS & PRIVACY ================= -->
+            <section id="section-ethics" class="hidden space-y-8">
+                <div class="border-b border-cream-300 pb-4">
+                    <h2 class="text-3xl font-extrabold text-dark-900">Professional Ethics & Social Responsibility</h2>
+                    <p class="text-dark-800/70 text-sm mt-1">Understanding legal responsibilities, data privacy laws, and ethical tech behavior.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-cream-100 p-6 rounded-2xl border border-cream-300 space-y-4">
+                        <div class="w-10 h-10 bg-burgundy-800 text-white rounded-xl flex items-center justify-center font-bold">
+                            <i class="fa-solid fa-scale-unbalanced-flip"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-dark-900">Data Privacy & Information Protection</h3>
+                        <p class="text-sm text-dark-800/80 leading-relaxed">
+                            IT professionals and students handling personal data must abide by privacy fundamentals (e.g., Data Privacy Act standards). This includes ensuring consent, confidentiality, and data minimization when building applications or managing student records.
+                        </p>
+                    </div>
+
+                    <div class="bg-cream-100 p-6 rounded-2xl border border-cream-300 space-y-4">
+                        <div class="w-10 h-10 bg-burgundy-800 text-white rounded-xl flex items-center justify-center font-bold">
+                            <i class="fa-solid fa-user-gear"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-dark-900">Responsible Disclosure & Ethics</h3>
+                        <p class="text-sm text-dark-800/80 leading-relaxed">
+                            Discovering a security vulnerability in a campus website or online tool requires <strong>Responsible Disclosure</strong>. Exploiting security flaws for personal gain or unauthorized access is illegal and violates academic ethical standards.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-cream-100 rounded-2xl p-6 sm:p-8 border border-cream-300 space-y-4">
+                    <h3 class="text-lg font-extrabold text-dark-900">The Student Digital Code of Conduct</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+                        <div class="bg-cream-200/80 p-4 rounded-xl border border-cream-300/60 space-y-2">
+                            <div class="font-bold text-burgundy-800 text-sm">1. Respect Privacy</div>
+                            <div class="text-xs text-dark-800/80">Never share personal credentials, ID numbers, or photos of classmates online without explicit consent.</div>
+                        </div>
+                        <div class="bg-cream-200/80 p-4 rounded-xl border border-cream-300/60 space-y-2">
+                            <div class="font-bold text-burgundy-800 text-sm">2. Practice Integrity</div>
+                            <div class="text-xs text-dark-800/80">Avoid downloading or spreading pirated software, malware tools, or keyloggers on shared hardware.</div>
+                        </div>
+                        <div class="bg-cream-200/80 p-4 rounded-xl border border-cream-300/60 space-y-2">
+                            <div class="font-bold text-burgundy-800 text-sm">3. Report Threats</div>
+                            <div class="text-xs text-dark-800/80">Notify campus IT departments when encountering suspicious emails, phishing links, or compromised portals.</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= SECTION 6: ADMIN PANEL PREVIEW ================= -->
+            <section id="section-admin" class="hidden space-y-8">
+                <div class="border-b border-cream-300 pb-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                    <div>
+                        <h2 class="text-3xl font-extrabold text-dark-900">Content Management Admin Panel</h2>
+                        <p class="text-dark-800/70 text-sm mt-1">Backend control panel for instructors/admins to manage educational content.</p>
+                    </div>
+                    <span class="bg-burgundy-800 text-cream-100 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                        Admin Mode Active
+                    </span>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                    <div class="bg-cream-100 p-6 rounded-2xl border border-cream-300 space-y-2">
+                        <span class="text-xs font-bold text-dark-800/60 uppercase tracking-wider">Active Modules</span>
+                        <div class="text-3xl font-extrabold text-dark-900">4</div>
+                        <span class="text-xs text-burgundy-700 font-semibold">Pre-loaded & Ready</span>
+                    </div>
+                    <div class="bg-cream-100 p-6 rounded-2xl border border-cream-300 space-y-2">
+                        <span class="text-xs font-bold text-dark-800/60 uppercase tracking-wider">Session Quizzes Taken</span>
+                        <div class="text-3xl font-extrabold text-dark-900" id="admin-quiz-count">0</div>
+                        <span class="text-xs text-green-700 font-semibold">Live Tracked</span>
+                    </div>
+                    <div class="bg-cream-100 p-6 rounded-2xl border border-cream-300 space-y-2">
+                        <span class="text-xs font-bold text-dark-800/60 uppercase tracking-wider">Tips Added</span>
+                        <div class="text-3xl font-extrabold text-dark-900" id="admin-tip-count">0</div>
+                        <span class="text-xs text-burgundy-700 font-semibold">Session Memory</span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                    <div class="lg:col-span-6 bg-cream-100 p-6 sm:p-8 rounded-2xl border border-cream-300 space-y-4">
+                        <h3 class="text-lg font-bold text-dark-900">Publish New Safety Announcement</h3>
+                        <form onsubmit="handleAddTip(event)" class="space-y-4">
+                            <div>
+                                <label class="block text-xs font-bold text-dark-900 uppercase tracking-wider mb-1">Tip Title</label>
+                                <input type="text" id="admin-tip-title" required placeholder="e.g., Beware of fake exam leak links" class="w-full bg-white border border-cream-300 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-burgundy-800">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-dark-900 uppercase tracking-wider mb-1">Category</label>
+                                <select id="admin-tip-cat" class="w-full bg-white border border-cream-300 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-burgundy-800">
+                                    <option>General Security</option>
+                                    <option>Social Media</option>
+                                    <option>Campus Wi-Fi</option>
+                                    <option>Phishing Alert</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-dark-900 uppercase tracking-wider mb-1">Tip Content</label>
+                                <textarea id="admin-tip-body" required rows="3" placeholder="Enter detailed recommendation..." class="w-full bg-white border border-cream-300 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-burgundy-800"></textarea>
+                            </div>
+                            <button type="submit" class="bg-burgundy-800 hover:bg-burgundy-700 text-white font-bold px-6 py-2.5 rounded-xl text-sm transition flex items-center space-x-2">
+                                <i class="fa-solid fa-plus"></i>
+                                <span>Publish Tip</span>
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="lg:col-span-6 bg-cream-100 p-6 sm:p-8 rounded-2xl border border-cream-300 space-y-4 flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-dark-900 mb-3">Published Student Announcements</h3>
+                            <div id="admin-tips-list" class="space-y-3 max-h-72 overflow-y-auto custom-scrollbar pr-1">
+                                <div class="bg-cream-200 p-4 rounded-xl border border-cream-300 text-xs space-y-1">
+                                    <div class="flex justify-between font-bold text-burgundy-800">
+                                        <span>Always Verify Sender Domain</span>
+                                        <span class="text-dark-800/50 text-[10px]">PRESET</span>
+                                    </div>
+                                    <p class="text-dark-900/80">Check whether emails requesting passcodes come from official university domain extensions.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- FOOTER -->
+        <footer class="bg-dark-900 text-cream-200 border-t border-burgundy-900/40 py-8 mt-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
+                <div class="flex justify-center items-center space-x-3">
+                    <div class="w-8 h-8 bg-burgundy-800 text-white rounded-lg flex items-center justify-center text-sm font-bold">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <span class="text-xl font-bold tracking-tight text-white">Cyber<span class="text-burgundy-600">Safe</span></span>
+                </div>
+                <p class="text-xs text-cream-400 max-w-xl mx-auto">
+                    CyberSafe is a BSIT Educational Awareness Project aimed at improving digital safety literacy, cyber hygiene, and data privacy responsibility among students.
+                </p>
+                <div class="text-[11px] text-cream-400/60">
+                    &copy; 2026 CyberSafe Student Awareness Initiative. All rights reserved.
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // MODULE DATA
+        const modulesData = {
+            1: {
+                title: "Phishing & Email Scams",
+                subtitle: "Recognizing deception, fake URLs, and malicious attachments.",
+                icon: "fa-fish",
+                content: `
+                    <div class="space-y-4">
+                        <h4 class="text-lg font-bold text-burgundy-800">What is Phishing?</h4>
+                        <p class="text-sm text-dark-800/90 leading-relaxed">
+                            Phishing is a social engineering attack where attackers impersonate trustworthy institutions (like your university, bank, or email provider) via email, SMS, or direct message to trick you into revealing sensitive credentials or downloading malware.
+                        </p>
+                        
+                        <h4 class="text-lg font-bold text-burgundy-800 pt-2">Key Red Flags of a Phishing Email</h4>
+                        <ul class="space-y-2 text-sm text-dark-800/90 list-disc list-inside">
+                            <li><strong>Mismatched Sender Address:</strong> The display name says "University Registrar" but the email address is <code class="bg-cream-200 px-1 py-0.5 rounded text-xs">admin-verify@free-web-host.com</code>.</li>
+                            <li><strong>Urgent or Threatening Tone:</strong> Messages claiming "Your account will be terminated in 24 hours unless you log in immediately!"</li>
+                            <li><strong>Generic Greetings:</strong> Using "Dear Student" instead of your registered name.</li>
+                            <li><strong>Suspicious Hyperlinks:</strong> Hover over buttons before clicking to verify the real destination URL.</li>
+                        </ul>
+                    </div>
+                `
+            },
+            2: {
+                title: "Password Security & Multi-Factor Auth (2FA)",
+                subtitle: "Building uncrackable credentials and securing personal accounts.",
+                icon: "fa-key",
+                content: `
+                    <div class="space-y-4">
+                        <h4 class="text-lg font-bold text-burgundy-800">The Power of Password Entropy</h4>
+                        <p class="text-sm text-dark-800/90 leading-relaxed">
+                            Automated cracking tools can test billions of passwords per second. Short passwords like <code class="bg-cream-200 px-1 py-0.5 rounded text-xs">student2024</code> can be cracked almost instantly. Adding length and random character variety drastically increases resistance.
+                        </p>
+
+                        <h4 class="text-lg font-bold text-burgundy-800 pt-2">Core Rules for Password Hygiene</h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+                            <div class="bg-white p-4 rounded-xl border border-cream-300">
+                                <strong class="text-burgundy-800 block mb-1">1. Never Reuse Passwords</strong>
+                                <span class="text-xs text-dark-800/80">If one site experiences a data leak, hackers will try that same password across your email, social media, and academic accounts.</span>
+                            </div>
+                            <div class="bg-white p-4 rounded-xl border border-cream-300">
+                                <strong class="text-burgundy-800 block mb-1">2. Enable Two-Factor (2FA)</strong>
+                                <span class="text-xs text-dark-800/80">2FA requires a secondary verification code even if someone steals your password.</span>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            3: {
+                title: "Social Engineering & Privacy Risks",
+                subtitle: "Protecting personal identity and avoiding over-sharing online.",
+                icon: "fa-user-shield",
+                content: `
+                    <div class="space-y-4">
+                        <h4 class="text-lg font-bold text-burgundy-800">What is Social Engineering?</h4>
+                        <p class="text-sm text-dark-800/90 leading-relaxed">
+                            Social engineering relies on human psychology rather than technical hacking. Attackers manipulate individuals into voluntarily handing over confidential information through trust, fear, or fake urgency.
+                        </p>
+                    </div>
+                `
+            },
+            4: {
+                title: "Public Wi-Fi & Network Safety",
+                subtitle: "Safe browsing habits on campus and public networks.",
+                icon: "fa-shield-halved",
+                content: `
+                    <div class="space-y-4">
+                        <h4 class="text-lg font-bold text-burgundy-800">Risks of Open Wi-Fi Networks</h4>
+                        <p class="text-sm text-dark-800/90 leading-relaxed">
+                            Unencrypted public Wi-Fi networks in coffee shops or libraries allow cybercriminals to intercept data traffic (Man-in-the-Middle attacks).
+                        </p>
+                    </div>
+                `
+            }
+        };
+
+        // QUIZ DATA
+        const quizData = [
+            {
+                category: "Phishing Scams",
+                question: "You receive an email claiming your university account will be suspended unless you click a link and log in immediately. What should you do?",
+                options: [
+                    "Click the link right away to prevent account suspension.",
+                    "Reply to the email asking if it is authentic.",
+                    "Do not click the link; verify directly via official school channels.",
+                    "Forward the link to your classmates to warn them."
+                ],
+                correct: 2
+            },
+            {
+                category: "Password Security",
+                question: "Which of the following is the strongest password strategy?",
+                options: [
+                    "Using your student ID number followed by your birth year.",
+                    "Reusing your main email password for all educational websites.",
+                    "Creating a long passphrase with mixed letters, numbers, and symbols.",
+                    "Writing your password on a sticky note attached to your laptop."
+                ],
+                correct: 2
+            },
+            {
+                category: "Multi-Factor Auth",
+                question: "What benefit does Two-Factor Authentication (2FA) provide?",
+                options: [
+                    "It makes your internet connection twice as fast.",
+                    "It adds a second layer of defense even if an attacker knows your password.",
+                    "It automatically cleans viruses from your computer.",
+                    "It allows you to skip typing your password altogether."
+                ],
+                correct: 1
+            },
+            {
+                category: "Network Safety",
+                question: "Why is accessing personal banking accounts on open public Wi-Fi risky?",
+                options: [
+                    "Public Wi-Fi turns off device Bluetooth.",
+                    "Attackers on the same unencrypted network could intercept data packets.",
+                    "Public Wi-Fi consumes more laptop battery.",
+                    "It causes bank websites to crash automatically."
+                ],
+                correct: 1
+            },
+            {
+                category: "Digital Ethics",
+                question: "If you discover a security flaw in your school's online portal, what is the ethical response?",
+                options: [
+                    "Exploit the flaw to change your grades.",
+                    "Share the flaw on social media to embarrass the institution.",
+                    "Privately notify the IT department through responsible disclosure.",
+                    "Sell the flaw details online."
+                ],
+                correct: 2
+            }
+        ];
+
+        // APP STATE
+        let currentQuizIndex = 0;
+        let score = 0;
+        let selectedOption = null;
+        let quizCompletedCount = 0;
+        let customTipsCount = 0;
+
+        // AUTHENTICATION FUNCTIONS
+        function handleLogin(e) {
+            e.preventDefault();
+            const u = document.getElementById('login-username').value;
+            const p = document.getElementById('login-password').value;
+
+            if (u && p) {
+                grantAccess(u);
+            } else {
+                const alertEl = document.getElementById('login-alert');
+                alertEl.textContent = 'Please enter valid login details.';
+                alertEl.classList.remove('hidden');
+            }
+        }
+
+        function loginAsGuest() {
+            grantAccess('Guest Student');
+        }
+
+        function grantAccess(username) {
+            document.getElementById('login-modal').classList.add('hidden');
+            document.getElementById('main-app').classList.remove('hidden');
+            document.getElementById('user-display-name').textContent = `Welcome, ${username}`;
+            loadModule(1);
+            renderQuestion();
+        }
+
+        function logout() {
+            document.getElementById('main-app').classList.add('hidden');
+            document.getElementById('login-modal').classList.remove('hidden');
+        }
+
+        // TABS
+        function switchTab(tabId) {
+            const sections = ['home', 'modules', 'tool', 'quiz', 'ethics', 'admin'];
+            sections.forEach(id => {
+                document.getElementById(`section-${id}`).classList.add('hidden');
+                const navBtn = document.getElementById(`nav-${id}`);
+                if (navBtn) navBtn.classList.remove('active');
+            });
+
+            document.getElementById(`section-${tabId}`).classList.remove('hidden');
+            const activeNav = document.getElementById(`nav-${tabId}`);
+            if (activeNav) activeNav.classList.add('active');
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        }
+
+        // MODULE RENDER
+        function loadModule(modId) {
+            for (let i = 1; i <= 4; i++) {
+                const btn = document.getElementById(`mod-tab-${i}`);
+                if (i === modId) {
+                    btn.className = "module-selector-btn bg-burgundy-800 text-white p-4 rounded-xl text-left font-bold border border-burgundy-800 transition shadow-sm flex items-center space-x-3";
+                } else {
+                    btn.className = "module-selector-btn bg-cream-100 text-dark-900 p-4 rounded-xl text-left font-bold border border-cream-300 hover:border-burgundy-800 transition shadow-sm flex items-center space-x-3";
+                }
+            }
+
+            const data = modulesData[modId];
+            document.getElementById('module-content-display').innerHTML = `
+                <div class="border-b border-cream-300 pb-4 space-y-1">
+                    <div class="flex items-center space-x-2 text-xs font-bold uppercase tracking-wider text-burgundy-800">
+                        <i class="fa-solid ${data.icon}"></i>
+                        <span>Educational Lesson Module 0${modId}</span>
+                    </div>
+                    <h3 class="text-2xl font-extrabold text-dark-900">${data.title}</h3>
+                    <p class="text-xs text-dark-800/70">${data.subtitle}</p>
+                </div>
+                <div>${data.content}</div>
+            `;
+        }
+
+        // PASSWORD STRENGTH
+        function evaluatePasswordStrength() {
+            const val = document.getElementById('pass-input').value;
+            const bar = document.getElementById('strength-bar');
+            const text = document.getElementById('strength-text');
+
+            let scoreVal = 0;
+            const hasLen = val.length >= 12;
+            const hasUpper = /[A-Z]/.test(val);
+            const hasLower = /[a-z]/.test(val);
+            const hasNum = /[0-9]/.test(val);
+            const hasSym = /[^A-Za-z0-9]/.test(val);
+
+            updateReqUI(document.getElementById('req-length'), hasLen, "At least 12 characters long");
+            updateReqUI(document.getElementById('req-upper'), hasUpper, "Uppercase letters (A-Z)");
+            updateReqUI(document.getElementById('req-lower'), hasLower, "Lowercase letters (a-z)");
+            updateReqUI(document.getElementById('req-number'), hasNum, "Numbers (0-9)");
+            updateReqUI(document.getElementById('req-symbol'), hasSym, "Special symbols (!@#$%^&*)");
+
+            if (val.length > 0) scoreVal++;
+            if (hasLen) scoreVal++;
+            if (hasUpper && hasLower) scoreVal++;
+            if (hasNum) scoreVal++;
+            if (hasSym) scoreVal++;
+
+            if (val.length === 0) {
+                bar.style.width = '0%';
+                text.textContent = 'None';
+            } else if (scoreVal <= 2) {
+                bar.style.width = '25%';
+                bar.className = 'h-full bg-red-600 transition-all duration-300';
+                text.textContent = 'Weak';
+            } else if (scoreVal <= 4) {
+                bar.style.width = '65%';
+                bar.className = 'h-full bg-amber-600 transition-all duration-300';
+                text.textContent = 'Moderate';
+            } else {
+                bar.style.width = '100%';
+                bar.className = 'h-full bg-burgundy-800 transition-all duration-300';
+                text.textContent = 'Strong (Excellent)';
+            }
+        }
+
+        function updateReqUI(el, isValid, label) {
+            if (isValid) {
+                el.className = "flex items-center space-x-2 text-burgundy-800 font-semibold";
+                el.innerHTML = `<i class="fa-solid fa-circle-check text-burgundy-800"></i><span>${label}</span>`;
+            } else {
+                el.className = "flex items-center space-x-2 text-dark-800/40";
+                el.innerHTML = `<i class="fa-solid fa-circle-xmark text-red-500"></i><span>${label}</span>`;
+            }
+        }
+
+        function togglePasswordVisibility() {
+            const input = document.getElementById('pass-input');
+            const icon = document.getElementById('eye-icon');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.className = 'fa-solid fa-eye-slash';
+            } else {
+                input.type = 'password';
+                icon.className = 'fa-solid fa-eye';
+            }
+        }
+
+        // QUIZ ENGINE
+        function renderQuestion() {
+            const q = quizData[currentQuizIndex];
+            selectedOption = null;
+
+            document.getElementById('quiz-progress-text').textContent = currentQuizIndex + 1;
+            document.getElementById('question-category').textContent = q.category;
+            document.getElementById('question-title').textContent = q.question;
+            document.getElementById('quiz-feedback').innerHTML = '';
+
+            const optionsContainer = document.getElementById('quiz-options');
+            optionsContainer.innerHTML = '';
+
+            q.options.forEach((opt, idx) => {
+                const optBtn = document.createElement('button');
+                optBtn.className = 'w-full text-left p-4 rounded-xl border border-cream-300 bg-white hover:border-burgundy-800 transition text-sm font-medium text-dark-900 flex items-center justify-between space-x-3';
+                optBtn.onclick = () => selectOption(idx, optBtn);
+                optBtn.innerHTML = `
+                    <div class="flex items-center space-x-3">
+                        <span class="w-7 h-7 rounded-full bg-cream-200 text-burgundy-800 flex items-center justify-center font-bold text-xs border border-cream-300">${String.fromCharCode(65 + idx)}</span>
+                        <span>${opt}</span>
+                    </div>
+                `;
+                optionsContainer.appendChild(optBtn);
+            });
+        }
+
+        function selectOption(idx, element) {
+            selectedOption = idx;
+            document.querySelectorAll('#quiz-options button').forEach(btn => {
+                btn.className = 'w-full text-left p-4 rounded-xl border border-cream-300 bg-white hover:border-burgundy-800 transition text-sm font-medium text-dark-900 flex items-center justify-between space-x-3';
+            });
+            element.className = 'w-full text-left p-4 rounded-xl border-2 border-burgundy-800 bg-burgundy-50 transition text-sm font-bold text-dark-900 flex items-center justify-between space-x-3';
+        }
+
+        function nextQuestion() {
+            if (selectedOption === null) {
+                document.getElementById('quiz-feedback').innerHTML = `<span class="text-red-600 font-bold">Please select an answer to continue.</span>`;
+                return;
+            }
+
+            if (selectedOption === quizData[currentQuizIndex].correct) {
+                score++;
+            }
+
+            currentQuizIndex++;
+            if (currentQuizIndex < quizData.length) {
+                renderQuestion();
+            } else {
+                showQuizResults();
+            }
+        }
+
+        function showQuizResults() {
+            document.getElementById('quiz-container').classList.add('hidden');
+            document.getElementById('quiz-result-card').classList.remove('hidden');
+            document.getElementById('final-score-text').textContent = `${score} / ${quizData.length}`;
+            const percentage = Math.round((score / quizData.length) * 100);
+            document.getElementById('score-percentage').textContent = `${percentage}% Mastery Level`;
+
+            quizCompletedCount++;
+            document.getElementById('admin-quiz-count').textContent = quizCompletedCount;
+        }
+
+        function restartQuiz() {
+            currentQuizIndex = 0;
+            score = 0;
+            selectedOption = null;
+            document.getElementById('quiz-result-card').classList.add('hidden');
+            document.getElementById('quiz-container').classList.remove('hidden');
+            renderQuestion();
+        }
+
+        // ADMIN TIPS
+        function handleAddTip(e) {
+            e.preventDefault();
+            const title = document.getElementById('admin-tip-title').value;
+            const cat = document.getElementById('admin-tip-cat').value;
+            const body = document.getElementById('admin-tip-body').value;
+
+            const tipEl = document.createElement('div');
+            tipEl.className = 'bg-cream-200 p-4 rounded-xl border border-cream-300 text-xs space-y-1';
+            tipEl.innerHTML = `
+                <div class="flex justify-between font-bold text-burgundy-800">
+                    <span>${title}</span>
+                    <span class="text-burgundy-900 bg-burgundy-100 px-1.5 py-0.5 rounded text-[10px] uppercase">${cat}</span>
+                </div>
+                <p class="text-dark-900/80">${body}</p>
+            `;
+            document.getElementById('admin-tips-list').prepend(tipEl);
+
+            document.getElementById('admin-tip-title').value = '';
+            document.getElementById('admin-tip-body').value = '';
+            customTipsCount++;
+            document.getElementById('admin-tip-count').textContent = customTipsCount;
+        }
+    </script>
+</body>
+</html>
